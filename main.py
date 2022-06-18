@@ -1,11 +1,12 @@
 from flask import Flask ,render_template,url_for,request,send_file
 from flask_sqlalchemy import SQLAlchemy
 import os
+import re
 import command_exec
 import port_scan
-import netbios
+from netbios import netb
 import pickle,ftpp
-import direnum
+from direnum import direnumm
 #import dnss
 import cve
 import sql_brute
@@ -64,6 +65,7 @@ def osdiscc():
     output = request.form
     ipp = output["ip"]
     result = command_exec.os_disc(ipp)
+    print(type(result))
     reporting(str(ipp),str(result),"os_disc")
     return render_template("os_disc.html", ip=result)
 
@@ -118,7 +120,7 @@ def netbios_res():
     ipp = output["ip"]
     print(ipp)
     # result=command_exec.portscan(ipp)
-    b = netbios.netb(str(ipp))
+    b = netb(str(ipp))
     reporting(str(ipp),b,"netb")
     print(b)
     return render_template("netbios.html", res=b)
@@ -152,7 +154,7 @@ def sql_res():
 @app.route("/xss.html",methods=['POST','GET'])
 def xsss():
     return render_template("xss.html")
-@app.route("/xss.html",methods=['POST','GET'])
+@app.route("/xss_res.html",methods=['POST','GET'])
 def xsss_res():
     output = request.form
     ipp = output["ip"]
@@ -170,8 +172,9 @@ def gd():
 def gdr():
     output = request.form
     ipp = output["ip"]
-    result = command_exec.discovery(ipp)
-    return render_template("google_dork.html",ip = result)
+    result = command_exec.google_dork(ipp)
+
+    return render_template("google_dork.html")
 @app.route("/direnum.html",methods=['POST','GET'])
 def direnum():
     return render_template("direnum.html")
@@ -179,7 +182,7 @@ def direnum():
 def direnum_res():
     output = request.form
     ipp = output["ip"]
-    result = direnum.direnumm(ipp)
+    result = direnumm(ipp)
     return render_template("direnum.html", res=result)
 
 @app.route("/hash",methods=['POST','GET'])
@@ -202,6 +205,7 @@ def cvee_res():
         result = cve.VuldbLookup(ipp,version)
     else:
         result = cve.VuldbLookup(ipp)
+        print(result)
     return render_template("cve.html", res=result)
 @app.route("/Test.html",methods=['POST','GET'])
 def testing():
@@ -296,10 +300,8 @@ def reportt():
         ftp = a.get("ftp")
     if checkKey(a, "dns"):
         dns = a.get("dns")
-
-
-
-
+    if checkKey(a,"netb"):
+        netb =a.get("netb")
 
     return render_template("report.html",pc=pc,osd=osd,disc=disc,ftp=ftp,netb=netb,dns=dns)
 if __name__ == '__main__':

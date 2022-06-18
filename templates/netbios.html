@@ -14,13 +14,10 @@
 </code>
 <code>
     {% if res %}
-    <table>
+    <table class="norma">
     <tr><th>IP</th><th>NAME</th><th>SERVICE</th></tr>
     {% for p in res%}
-
-    {% for key in  P%}
-        <tr><td>{{p}}</td>
-{% endfor %}</tr>
+        <tr><td>{{p[0]}}</td><td>{{p[1]}}</td><td>{{p[2]}}</td></tr>
 {% endfor %}
         {% endif %}
 </table>

@@ -172,8 +172,9 @@ def session():
 
     return r
 
-
+"""""
 u = "http://10.0.2.11/mutillidae/index.php?page=user-info.php"
 
 b=core.main(u)
 print(b)
+"""

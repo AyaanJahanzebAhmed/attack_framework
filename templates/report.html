@@ -22,7 +22,7 @@
         {% endif %}
 
     {% if pc %}
-    <table>
+    <table class ="norm">
         <h1>PORT SCANNING </h1>
     <tr><th>Port number</th><th>State</th><th>product</th><th>Version</th></tr>
     {% for p ,info in pc.items()%}
@@ -35,7 +35,7 @@
     </table>
         {% if ftp %}
 
-    <table>
+    <table class="norma">
         <h2>FTP ENUMERATION </h2>
     <tr><th>Username</th><th>Password</th></tr>
     {% for p ,info in ftp.items()%}
@@ -50,14 +50,11 @@
 </table>
 
  {% if res %}
-    <h2>NETBIOS Enumeration</h2>
+    <h2>NETBIOS ENUMERATION</h2>
     <table>
     <tr><th>IP</th><th>NAME</th><th>SERVICE</th></tr>
     {% for p in res%}
-
-    {% for key in  P%}
-        <tr><td>{{p}}</td>
-{% endfor %}</tr>
+    <tr><td>{{p[0]}}</td><td>{{p[1]}}</td><td>{{p[2]}}</td></tr>
 {% endfor %}
         {% endif %}
     </table>
