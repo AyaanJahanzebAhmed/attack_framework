@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<code>
+    <h1> SQL VULNERABILITY SCANNER </h1>
+    <form class="sql_inj" action="/sql_res.html" method="POST">
+    <label for="ip">Enter address:</label>
+    <input type="text" name="ip" id="ip">
+    <input type="submit" value="SCAN">
+    <code>{{res}}</code>
+    </form>
+</code>
+
+    <p>
+
+    </p>
+
+
+</div>
+{% endblock %}

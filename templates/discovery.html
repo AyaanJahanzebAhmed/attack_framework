@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<code>
+    <h1> Port scanner</h1>
+    <form class="discc" action="/discovery_result" method="POST">
+    <label for="ip">Enter IP address:</label>
+    <input type="text" name="ip" id="ip">
+    <input type="submit" value="SCAN">
+    </form>
+</code>
+<code>{{ip}}</code>
+
+
+</div>
+{% endblock %}

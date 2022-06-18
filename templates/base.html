@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/main.css') }}">
+    {% block head %} {% endblock %}
+
+</head>
+<style>
+body{
+ background-image:url({{ url_for ('static', filename = '/back.jpg') }});
+ color:white;
+ }
+ h1{
+ text-align:'center'
+ }
+ button{
+ font-size:20px;
+ opacity:.5;
+ }
+</style>
+<body >
+<center><h1>Attack framework</h1>
+    {% block body %}{% endblock %}
+    </center>
+</body>
+</html>

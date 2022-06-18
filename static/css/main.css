@@ -1,0 +1,9 @@
+body
+{
+    background-image:url({{ url_for ('static', filename = '/static/back.jpg') }});
+    margon:0;
+}
+h1
+{
+    align:centre;
+}

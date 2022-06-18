@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<code>
+    <h1> Port scanner</h1>
+    <form class="os_disc" action="/os_disc_res" method="POST">
+    <label for="ip">Enter IP address:</label>
+    <input type="text" name="ip" id="ip">
+    <input type="submit" value="Discovering">
+    <code>{{ip}}</code>
+    </form>
+</code>
+
+    <p>
+
+    </p>
+
+
+</div>
+{% endblock %}

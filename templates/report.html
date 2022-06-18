@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<code>
+    <h1> REPORT</h1>
+    <form class="report" action="/report_res.html" method="POST">
+    <label for="ip">Enter IP address:</label>
+    <input type="text" name="ip" id="ip">
+    <input type="submit" value="Check for report ">
+    </form>
+</code>
+{% if disc %}
+        <h2> Discovery</h2>
+        <code>{{disc}}</code>
+        {% endif %}
+{% if osd %}
+        <h2> OS discovery</h2>
+        <code>{{osd}}</code>
+        {% endif %}
+
+    {% if pc %}
+    <table>
+        <h1>PORT SCANNING </h1>
+    <tr><th>Port number</th><th>State</th><th>product</th><th>Version</th></tr>
+    {% for p ,info in pc.items()%}
+   <tr><td>{{p}}</td>
+    {% for key in info%}
+        <td>{{info[key]}}</td>
+{% endfor %}</tr>
+{% endfor %}
+        {% endif %}
+    </table>
+        {% if ftp %}
+
+    <table>
+        <h2>FTP ENUMERATION </h2>
+    <tr><th>Username</th><th>Password</th></tr>
+    {% for p ,info in ftp.items()%}
+
+    {% for key in info%}
+        <tr><td>{{p}}</td>
+        <td>{{key}}</td></tr>
+{% endfor %}
+{% endfor %}
+        {% endif %}
+
+</table>
+
+ {% if res %}
+    <h2>NETBIOS Enumeration</h2>
+    <table>
+    <tr><th>IP</th><th>NAME</th><th>SERVICE</th></tr>
+    {% for p in res%}
+
+    {% for key in  P%}
+        <tr><td>{{p}}</td>
+{% endfor %}</tr>
+{% endfor %}
+        {% endif %}
+    </table>
+
+</code>
+
+<code>
+    {% if dns %}
+    <table>
+        <h2>DNS Enumeration</h2>
+    <tr><th>RECORD TYPE</th>  <th>DATA</th>
+    {% for p ,info in dns.items()%}
+   <tr><td>{{p}}</td>
+    {% for key in info%}
+        <td>{{key}}</td>
+{% endfor %}</tr>
+{% endfor %}
+        {% endif %}
+</table>
+</code>
+</div>
+{% endblock %}

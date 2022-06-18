@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<code>
+    <h1> NETBIOS SCANNER </h1>
+    <form class="scan" action="/netbios_res.html" method="POST">
+    <label for="ip">Enter IP address:</label>
+    <input type="text" name="ip" id="ip">
+    <input type="submit" value="SCAN">
+    </form>
+</code>
+<code>
+    {% if res %}
+    <table>
+    <tr><th>IP</th><th>NAME</th><th>SERVICE</th></tr>
+    {% for p in res%}
+
+    {% for key in  P%}
+        <tr><td>{{p}}</td>
+{% endfor %}</tr>
+{% endfor %}
+        {% endif %}
+</table>
+</code>
+
+
+</div>
+{% endblock %}

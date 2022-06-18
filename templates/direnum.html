@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<code>
+    <h1> DIRECTORY ENUMERATION</h1>
+    <form class="dir_enum" action="/direnum_result" method="POST">
+    <label for="ip">Enter IP address:</label>
+    <input type="text" name="ip" id="ip">
+    <input type="submit" value="Directory enumeration ">
+    <code>{{ip}}</code>
+    </form>
+</code>
+
+    <p>
+
+    </p>
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<code>
+    <h1> FTP Scanner </h1>
+    <form class="scan" action="/ftp_res.html" method="POST">
+    <label for="ip">Enter IP address:</label>
+    <input type="text" name="ip" id="ip">
+    <input type="submit" value="SCAN">
+    </form>
+</code>
+<code>
+    {% if res %}
+    <table>
+    <tr><th>Username</th><th>Password</th></tr>
+    {% for p ,info in res.items()%}
+
+    {% for key in info%}
+        <tr><td>{{p}}</td>
+        <td>{{key}}</td></tr>
+{% endfor %}
+{% endfor %}
+        {% endif %}
+</table>
+</code>
+
+</div>
+{% endblock %}

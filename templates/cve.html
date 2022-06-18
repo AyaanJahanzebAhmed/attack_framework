@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<code>
+    <h1> CVE </h1>
+    <form class="cve" action="/cve_res.html" method="POST">
+    <label for="product">Enter product name:</label>
+    <input type="text" name="product" id="product">
+    <label for="version">Enter version no (Not mandatory)</label>
+    <input type="text" name="version" id="version">
+    <input type="submit" value="SCAN">
+    </form>
+</code>
+<code>
+    {% if res %}
+    <table>
+        <tr><th>CVE ID NO:</th></tr>
+        {% for p in res%}
+
+        <tr><td>{{p}}</td></tr>
+
+{% endfor %}
+        {% endif %}
+</table>
+</code>
+
+
+</div>
+{% endblock %}
