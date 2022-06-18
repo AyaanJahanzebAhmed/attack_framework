@@ -10,13 +10,17 @@
     <label for="ip">Enter IP address:</label>
     <input type="text" name="ip" id="ip">
     <input type="submit" value="Directory enumeration ">
-    <code>{{ip}}</code>
     </form>
 </code>
-
-    <p>
-
-    </p>
+ {% if res %}
+    <table>
+    <tr><th>Directory</th>  <th>Response code</th>
+    {% for p ,info in res.items()%}
+   <tr><td>{{p}}</td><td>{{info}}</td>
+</tr>
+{% endfor %}
+        {% endif %}
+    </table>
 
 
 </div>

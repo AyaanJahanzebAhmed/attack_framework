@@ -5,6 +5,7 @@ import command_exec
 import port_scan
 import netbios
 import pickle,ftpp
+import direnum
 #import dnss
 import cve
 import sql_brute
@@ -121,8 +122,6 @@ def netbios_res():
     reporting(str(ipp),b,"netb")
     print(b)
     return render_template("netbios.html", res=b)
-
-
 @app.route("/dnss.html",methods=['POST','GET'])
 def dnss():
     return render_template("dns.html")
@@ -180,8 +179,8 @@ def direnum():
 def direnum_res():
     output = request.form
     ipp = output["ip"]
-    result = command_exec.direnum(ipp)
-    return render_template("direnum.html", ip=result)
+    result = direnum.direnumm(ipp)
+    return render_template("direnum.html", res=result)
 
 @app.route("/hash",methods=['POST','GET'])
 def hashh():
