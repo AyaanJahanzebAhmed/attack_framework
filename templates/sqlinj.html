@@ -8,9 +8,9 @@
     <h1> SQL VULNERABILITY SCANNER </h1>
     <form class="sql_inj" action="/sql_res.html" method="POST">
     <label for="ip">Enter address:</label>
-    <input type="text" name="ip" id="ip">
-    <input type="submit" value="SCAN">
-    <code>{{res}}</code>
+    <input type="text" name="ip" id="ip" required>
+    <input type="submit" value="SCAN"><span style="color:red" >{% if error %}{{error}} {% endif %}</span>
+    <code>{% if res %} {{res}} {% endif %}</code>
     </form>
 </code>
 

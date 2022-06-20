@@ -11,8 +11,28 @@ from direnum import direnumm
 import cve
 import sql_brute
 import xss
-
+import re
 app=Flask(__name__)
+
+
+def checkinp(Ip):
+    # pass the regular expression
+    # and the string in search() method
+    regex = "^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$"
+    rege = re.compile(
+        r'^(?:http|ftp)s?://'  # http:// or https://
+        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|'  # domain...
+        r'localhost|'  # localhost...
+        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'  # ...or ip
+        r'(?::\d+)?'  # optional port
+        r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+    if (re.search(regex, Ip)):
+        return
+    elif (re.match(rege,Ip)):
+        return
+    else:
+        return ("Invalid IP address/url")
+
 
 def checkKey(dict, key):
    if key in dict.keys():
@@ -62,12 +82,18 @@ def osdisc():
     return render_template("os_disc.html")
 @app.route("/os_disc_res",methods=['POST','GET'])
 def osdiscc():
+    error=None
     output = request.form
     ipp = output["ip"]
+    v = checkinp(ipp)
+    if v:
+        error = v
+        result = None
+        return render_template("os_disc.html", ip=result, error=error)
     result = command_exec.os_disc(ipp)
     print(type(result))
     reporting(str(ipp),str(result),"os_disc")
-    return render_template("os_disc.html", ip=result)
+    return render_template("os_disc.html", ip=result,error=error)
 
 
 @app.route("/port_scanner.html",methods=['POST','GET'])
@@ -75,12 +101,18 @@ def port_scanner():
     return render_template("port_scanner.html")
 @app.route("/portscan_result",methods=['POST','GET'])
 def portscan_result():
+    error =None
     output=request.form
     ipp =output["ip"]
+    v = checkinp(ipp)
+    if v:
+        error = v
+        b = None
+        return render_template("port_scanner.html", res=b, error=error)
     #result=command_exec.portscan(ipp)
     b = port_scan.scanner(ipp)
     reporting(str(ipp),b,"port_scan")
-    return render_template("port_scanner.html",res= b)
+    return render_template("port_scanner.html",res= b,error=error)
 @app.route("/scan.html",methods=['POST','GET'])
 def scan():
     return render_template("scan.html")
@@ -92,77 +124,113 @@ def disc():
     return render_template("discovery.html")
 @app.route("/discovery_result",methods=['POST','GET'])
 def discs():
+    error=None
     output = request.form
     ipp = output["ip"]
+    v=checkinp(ipp)
+    if v:
+        error=v
+        result=None
+        return render_template("discovery.html", ip=result, error=error)
     result = command_exec.discovery(ipp)
     reporting(str(ipp),result,"disc")
     #print(type(result))
-    return render_template("discovery.html", ip=result)
+    return render_template("discovery.html", ip=result , error=error)
 @app.route("/ftp.html",methods=['POST','GET'])
 def ftp():
     return render_template("ftp.html")
 @app.route("/ftp_res.html",methods=['POST','GET'])
 def ftp_res():
     output = request.form
+    error=None
     ipp = output["ip"]
     print(ipp)
+    v = checkinp(ipp)
+    if v:
+        error=v
+        b=None
+        return render_template("ftp.html", res=b, error=error)
     # result=command_exec.portscan(ipp)
     b = ftpp.enum(str(ipp))
     reporting(str(ipp),b,"ftp")
     print(b)
-    return render_template("ftp.html", res=b)
+    return render_template("ftp.html", res=b,error=error)
 @app.route("/netbios.html",methods=['POST','GET'])
 def netbios():
     return render_template("netbios.html")
 @app.route("/netbios_res.html",methods=['POST','GET'])
 def netbios_res():
+    error=None
     output = request.form
     ipp = output["ip"]
     print(ipp)
+    v = checkinp(ipp)
+    if v:
+        error = v
+        b = None
+        return render_template("netbios.html", res=b, error=error)
     # result=command_exec.portscan(ipp)
     b = netb(str(ipp))
     reporting(str(ipp),b,"netb")
     print(b)
-    return render_template("netbios.html", res=b)
+    return render_template("netbios.html", res=b,error=error)
 @app.route("/dnss.html",methods=['POST','GET'])
 def dnss():
     return render_template("dns.html")
 @app.route("/dns_res.html",methods=['POST','GET'])
 def dns_res():
+    error=None
     output = request.form
     ipp = output["ip"]
     print(ipp)
+    v = checkinp(ipp)
+    if v:
+        error = v
+        b = None
+        return render_template("dns.html", res=b,error=error)
     # result=command_exec.portscan(ipp)
     b = dnss.dns_cap(str(ipp))
     reporting(str(ipp),b,"dns")
     print(b)
-    return render_template("dns.html", res=b)
+    return render_template("dns.html", res=b,error=error)
 
 @app.route("/sql.html",methods=['POST','GET'])
 def sqll():
     return render_template("sqlinj.html")
 @app.route("/sql_res.html",methods=['POST','GET'])
 def sql_res():
+    error=None
     output = request.form
     ipp = output["ip"]
     print(ipp)
+    v = checkinp(ipp)
+    if v:
+        error = v
+        b = None
+        return render_template("sqlinj.html", res=b, error=error)
     # result=command_exec.portscan(ipp)
     b = sql_brute.scan_sql_injection(str(ipp))
     #reporting(str(ipp),b,"sql")
     print(b)
-    return render_template("sqlinj.html", res=b)
+    return render_template("sqlinj.html", res=b,error=error)
 @app.route("/xss.html",methods=['POST','GET'])
 def xsss():
     return render_template("xss.html")
 @app.route("/xss_res.html",methods=['POST','GET'])
 def xsss_res():
+    error=None
     output = request.form
     ipp = output["ip"]
     print(ipp)
+    v = checkinp(ipp)
+    if v:
+        error = v
+        b = None
+        return render_template("xss.html", res=b, error=error)
     # result=command_exec.portscan(ipp)
     b = xss.core.main(str(ipp))
     print(b)
-    return render_template("xss.html", res=b)
+    return render_template("xss.html", res=b,error=error)
 
 
 @app.route("/google_dork.html",methods=['POST','GET'])
@@ -180,15 +248,16 @@ def direnum():
     return render_template("direnum.html")
 @app.route("/direnum_result",methods=['POST','GET'])
 def direnum_res():
+    error=None
     output = request.form
     ipp = output["ip"]
+    v = checkinp(ipp)
+    if v:
+        error = v
+        b = None
+        return render_template("direnum.html", res=b, error=error)
     result = direnumm(ipp)
-    return render_template("direnum.html", res=result)
-
-@app.route("/hash",methods=['POST','GET'])
-def hashh():
-    return render_template("hash.html")
-
+    return render_template("direnum.html", res=result,error=error)
 
 @app.route("/gain_acess.html",methods=['POST','GET'])
 def gainac():
@@ -285,9 +354,13 @@ def reportt():
     ftp=None
     netb=None
     dns=None
-
+    error=None
     output = request.form
     ipp = output["ip"]
+    if not os.path.isfile("%s.txt" %ipp):
+        error="Report not found "
+        return render_template("report.html", pc=pc, osd=osd, disc=disc, ftp=ftp, netb=netb, dns=dns, error=error)
+
     pickle_off = open("%s.txt" % ipp, "r+b")
     a = pickle.load(pickle_off)
     if checkKey(a,"port_scan"):
@@ -303,7 +376,7 @@ def reportt():
     if checkKey(a,"netb"):
         netb =a.get("netb")
 
-    return render_template("report.html",pc=pc,osd=osd,disc=disc,ftp=ftp,netb=netb,dns=dns)
+    return render_template("report.html",pc=pc,osd=osd,disc=disc,ftp=ftp,netb=netb,dns=dns,error=None)
 if __name__ == '__main__':
     app.run(debug=True)
 

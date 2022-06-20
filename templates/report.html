@@ -8,10 +8,12 @@
     <h1> REPORT</h1>
     <form class="report" action="/report_res.html" method="POST">
     <label for="ip">Enter IP address:</label>
-    <input type="text" name="ip" id="ip">
+    <input type="text" name="ip" id="ip" required>
     <input type="submit" value="Check for report ">
+
     </form>
 </code>
+<span style="color:red" ><h4>{% if error %}{{error}} {% endif %}</h4></span>
 {% if disc %}
         <h2> Discovery</h2>
         <code>{{disc}}</code>

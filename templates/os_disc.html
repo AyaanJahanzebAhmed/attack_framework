@@ -8,9 +8,9 @@
     <h1> Operating System Discovery</h1>
     <form class="os_disc" action="/os_disc_res" method="POST">
     <label for="ip">Enter IP address:</label>
-    <input type="text" name="ip" id="ip">
-    <input type="submit" value="Discovering">
-    <code>{{ip}}</code>
+    <input type="text" name="ip" id="ip" required>
+    <input type="submit" value="Discovering"><span style="color:red" >{% if error %}{{error}} {% endif %}</span>
+    <code>{% if ipp %} {{ip}} {% endif %}</code>
     </form>
 </code>
 

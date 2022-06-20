@@ -8,7 +8,7 @@
     <h1> FTP Scanner </h1>
     <form class="scan" action="/ftp_res.html" method="POST">
     <label for="ip">Enter IP address:</label>
-    <input type="text" name="ip" id="ip">
+    <input type="text" name="ip" id="ip" required> <span style="color:red" >{% if error %}{{error}} {% endif %}</span>
     <input type="submit" value="SCAN">
     </form>
 </code>

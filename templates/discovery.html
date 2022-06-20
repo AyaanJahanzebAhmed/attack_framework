@@ -8,12 +8,10 @@
     <h1> DISCOVERY</h1>
     <form class="discc" action="/discovery_result" method="POST">
     <label for="ip">Enter IP address:</label>
-    <input type="text" name="ip" id="ip">
-    <input type="submit" value="SCAN">
+    <input type="text" name="ip" id="ip" required >
+    <input type="submit" value="SCAN"><span style="color:red" >{% if error %}{{error}} {% endif %}</span>
     </form>
 </code>
-<code>{{ip}}</code>
-
-
+<code> {% if ipp %}{{ip}} {% endif %}</code>
 </div>
 {% endblock %}
